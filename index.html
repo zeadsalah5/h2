@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get User Location</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  #locationDisplay {
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div id="locationDisplay">
+  <p>Latitude: <span id="latitude"></span></p>
+  <p>Longitude: <span id="longitude"></span></p>
+</div>
+<script>
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function showPosition(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    
+    // Update the iframe URL with latitude and longitude
+    const iframeUrl = `https://www.google.com/maps/?q=${latitude},${longitude}&h1=es;z=14&output=embed`;
+    document.getElementById("mapFrame").src = iframeUrl;
+    
+    // Display latitude and longitude
+   
+  }
+
+  // Call the getLocation function when the page loads
+  window.onload = getLocation;
+</script>
+
+<!-- iframe for Google Maps -->
+<iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+</body>
+</html>
